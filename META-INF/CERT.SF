@@ -1,0 +1,29 @@
+Signature-Version: 1.0
+Created-By: Android Gradle 8.7.3
+SHA-256-Digest-Manifest: l7S9Gi/2gE4jAVNGzjEL40Bp4PI2n2/cXxTgJZCpiWQ=
+X-Android-APK-Signed: 2
+
+Name: AndroidManifest.xml
+SHA-256-Digest: C8K+bHQTxwRA7CMFSqxAenFUoJx78KOYu71G2OK42GA=
+
+Name: META-INF/com/android/build/gradle/app-metadata.properties
+SHA-256-Digest: tMpL0bvzS/ABhU8xReE0obMyu5/Qfaqwl1NfnqIjcb0=
+
+Name: assets/icon.svg
+SHA-256-Digest: erO65cy+6Wxh4cilnp/k6KzzzSMus6ukW/WM7C9ItjE=
+
+Name: assets/index.html
+SHA-256-Digest: U43YHqFDRu2VBKDQwmTap11A2gCzSpGj/nYpfxPRibQ=
+
+Name: assets/supabase-config.js
+SHA-256-Digest: U50gW+ZkOgttQYROiwWrTuGvQOjKYuWbXAaq1I3UDYw=
+
+Name: classes.dex
+SHA-256-Digest: 9z0iDX3sqf3A0odOPVWh6hMdlVluIuUThK01MZztBek=
+
+Name: classes2.dex
+SHA-256-Digest: tmizvvaY85jmOyjVXXJ7BdMOzVEbG7SpNu++FNNWPCI=
+
+Name: resources.arsc
+SHA-256-Digest: NUt1BUt+jJ4VmM3p4pg/s5hiZFMYEt01ELovDn5dCdM=
+
