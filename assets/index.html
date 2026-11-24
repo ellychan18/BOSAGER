@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#03143c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="BOSAGER V5">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<meta name="description" content="BOSAGER SERVER V5 - dashboard konfigurasi">
+<title>BOSAGER SERVER V5</title>
+<style>
+:root{--blue:#168bff;--cyan:#39e5ff;--bg:#020b25;--panel:#061943;--muted:#a9c8f4;--line:#176fe4}
+*{box-sizing:border-box}body{margin:0;color:#f5f9ff;font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif;background:radial-gradient(ellipse at 50% 0%,#0753b8 0,#061b50 34%,#020a22 78%);min-height:100vh}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.2;background:repeating-linear-gradient(0deg,transparent 0 39px,#168bff22 40px),repeating-linear-gradient(90deg,transparent 0 39px,#168bff18 40px)}
+.shell{max-width:720px;margin:auto;padding:20px 16px 40px;position:relative}
+.topline{height:8px;border:1px solid #49dfff;box-shadow:0 0 18px #078bff;border-radius:10px;margin:4px 0 24px;background:linear-gradient(90deg,transparent,#078bff,#7af4ff,#078bff,transparent)}
+.brand{text-align:center;padding:16px 10px 10px}
+.brandmark{display:inline-block;padding:14px 28px;border:2px solid #32bfff;border-radius:22px;background:linear-gradient(135deg,#03102e,#0646a4 50%,#020d2b);box-shadow:0 0 12px #058bff, inset 0 0 22px #0d8cff88;transform:skew(-2deg)}
+.brandmark strong{font-size:clamp(22px,5vw,34px);letter-spacing:1px;color:#58b9ff;text-shadow:0 0 12px #008dff}
+h1{text-align:center;font-size:clamp(25px,6vw,42px);margin:24px 0 22px;letter-spacing:1px;text-shadow:0 0 15px #168bff}
+.sub{text-align:center;color:#b8d8ff;font-size:12px;letter-spacing:2px;margin-top:-14px;margin-bottom:25px}
+.panel{border:1px solid #147cf0;border-radius:18px;padding:20px;background:linear-gradient(150deg,#071c49ee,#03102fee);box-shadow:0 0 22px #006dff55,inset 0 0 20px #0753b522}
+.field{margin-bottom:18px}.field label,.section-label{display:block;font-weight:650;margin-bottom:8px;color:#e8f4ff}
+input[type=text]{width:100%;padding:14px 15px;border:1px solid #267be0;border-radius:10px;background:#020c27;color:#fff;font-size:16px;outline:none}
+input:focus{border-color:#50e8ff;box-shadow:0 0 0 3px #0b8fff33}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.switchrow{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid #17477f}
+.switchrow:last-child{border-bottom:0}.switchrow small{display:block;color:#93b9e8;margin-top:3px;font-size:11px}
+.switch{appearance:none;width:54px;height:29px;border-radius:30px;background:#3b465f;position:relative;flex:none;cursor:pointer;transition:.2s}
+.switch:before{content:"";position:absolute;width:21px;height:21px;top:4px;left:4px;background:#fff;border-radius:50%;transition:.2s}
+.switch:checked{background:#087fff;box-shadow:0 0 12px #008dff}.switch:checked:before{left:29px;background:#9efffa}
+.range-wrap{padding:12px 0 18px}.range-head{display:flex;justify-content:space-between;color:#b7d9ff;font-size:13px;margin-bottom:10px}
+input[type=range]{width:100%;accent-color:#40e7ff}
+.choices{display:flex;flex-wrap:wrap;gap:10px}.choice{display:flex;align-items:center;gap:7px;padding:9px 12px;border:1px solid #1b69bd;border-radius:10px;background:#03112e;color:#d9ebff;cursor:pointer}
+.choice input{accent-color:#37edff}.muted{color:#9dbce7;font-size:12px;line-height:1.5}
+.section{margin-top:22px}.section h2{font-size:15px;letter-spacing:1px;color:#75cfff;margin:0 0 12px}
+.notice{margin-top:16px;padding:12px;border:1px solid #9b6d24;border-radius:10px;background:#33250855;color:#ffdfa0;font-size:12px;line-height:1.5}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+button{border:0;border-radius:12px;padding:15px 12px;font-size:15px;font-weight:800;cursor:pointer}
+.primary{color:#001333;background:linear-gradient(100deg,#188dff,#63f0ff);box-shadow:0 0 18px #078bff88}
+.secondary{color:#cbeaff;border:1px solid #228cff;background:#071b43}
+button:active{transform:scale(.98)}
+.status{margin-top:16px;padding:12px;border-radius:10px;background:#02112c;border:1px solid #175a9f;color:#a9d9ff;font-size:13px;min-height:42px}
+.footer{text-align:center;color:#9dc9fa;margin-top:24px;font-size:13px}
+.modal{display:none;position:fixed;inset:0;background:#000b;z-index:5;align-items:center;justify-content:center;padding:20px}.modal.open{display:flex}.dialog{max-width:420px;width:100%;background:#061943;border:1px solid #36caff;border-radius:16px;padding:22px;box-shadow:0 0 35px #087fff88}.dialog h3{margin-top:0;color:#70dfff}
+@media(max-width:480px){.shell{padding:12px 12px 30px}.panel{padding:16px}.grid{grid-template-columns:1fr}.actions{grid-template-columns:1fr}.brandmark{padding:12px 18px}}
+
+.authbox{margin:0 0 22px;padding:14px;border:1px solid #176fe4;border-radius:13px;background:#020f31cc}
+.authbox h2{margin:0 0 10px;color:#75cfff;font-size:15px;letter-spacing:1px}
+.authgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.authbox input{width:100%;min-width:0;padding:12px;border:1px solid #267be0;border-radius:9px;background:#020c27;color:#fff;font-size:14px}
+.authbuttons{display:flex;gap:9px;margin-top:10px;flex-wrap:wrap}
+.authbuttons button{padding:11px 13px;font-size:12px}
+.authmeta{color:#a9c8f4;font-size:12px;margin-top:9px;overflow-wrap:anywhere}
+@media(max-width:480px){.authgrid{grid-template-columns:1fr}}
+
+#dashboard[hidden]{display:none}
+#keyGate{margin:0 0 22px}
+#accessKey{text-transform:uppercase;letter-spacing:1.5px}
+</style>
+</head>
+<body>
+<main class="shell">
+<div class="topline"></div>
+<header class="brand"><div class="brandmark"><strong>BOSAGER SERVER</strong></div></header>
+<h1>RANK VS BOT V5</h1><div class="sub">CONTROL DASHBOARD</div>
+<div class="authbox" id="keyGate">
+<h2>AKSES BOSAGER</h2>
+<div class="authgrid" style="grid-template-columns:1fr">
+<input id="accessKey" type="password" placeholder="Masukkan KEY BOSAGER" autocomplete="off">
+</div>
+<div class="authbuttons">
+<button class="primary" id="activateKey" type="button">BUKA APLIKASI</button>
+<button class="secondary" id="lockApp" type="button" hidden>KUNCI APLIKASI</button>
+</div>
+<div class="authmeta" id="keyStatus">Masukkan KEY pribadi untuk membuka dashboard.</div>
+</div>
+<section class="panel" id="dashboard" hidden>
+
+<div class="grid">
+<div class="field"><label for="server">ID (SERVER)</label><input id="server" type="text" placeholder="Masukkan ID server" autocomplete="off"></div>
+<div class="field"><label for="room">ROOM ID</label><input id="room" type="text" placeholder="Masukkan Room ID" autocomplete="off"></div>
+</div>
+<div class="section">
+<h2>FITUR KONTROL</h2>
+<div class="switchrow"><div><b>Bypass Anti Ban</b></div><input id="bypass" class="switch" type="checkbox" aria-label="Aktifkan opsi Bypass Anti Ban"></div>
+<div class="switchrow"><div><b>Drone View</b></div><input id="drone" class="switch" type="checkbox"></div>
+<div class="range-wrap"><div class="range-head"><span>Drone View</span><b id="rangeValue">X2</b></div><input id="zoom" type="range" min="1" max="4" value="2"><div class="range-head"><span>X1</span><span>X2</span><span>X4</span></div></div>
+<div class="switchrow"><div><b>Auto Retry</b></div><input id="retry" class="switch" type="checkbox"></div>
+<div class="switchrow"><div><b>Ling auto ambil 4 pedang</b></div><input id="sword" class="switch" type="checkbox"></div>
+</div>
+<div class="section"><h2>PILIHAN BUFF</h2><div class="choices">
+<label class="choice"><input type="radio" name="buff" value="Merah/Biru" checked> Buff merah/biru</label>
+<label class="choice"><input type="radio" name="buff" value="Lord"> Lord</label>
+<label class="choice"><input type="radio" name="buff" value="Turtle"> Turtle</label>
+</div></div>
+<div class="section"><h2>MODE TEAM</h2><div class="choices">
+<label class="choice"><input type="radio" name="team" value="Solo" checked> Solo</label>
+<label class="choice"><input type="radio" name="team" value="Duo"> Duo</label>
+<label class="choice"><input type="radio" name="team" value="Trio"> Trio</label>
+<label class="choice"><input type="radio" name="team" value="Party"> Party</label>
+</div></div>
+
+<div class="actions"><button class="secondary" id="save">SIMPAN KONFIGURASI</button><button class="primary" id="login">LOGIN MLBB</button></div>
+<div class="status" id="status" role="status">Siap. Isi ID Server dan Room ID untuk memulai konfigurasi.</div>
+</section>
+<footer class="footer">BOSAGER SERVER • RANK VS BOT V5</footer>
+<div class="topline" style="margin-top:24px"></div>
+</main>
+<div class="modal" id="modal"><div class="dialog"><h3>Koneksi game belum tersedia</h3><p class="muted">Jika dibuka dari browser dan MLBB tidak terbuka otomatis, buka aplikasi Mobile Legends secara manual. Tombol ini hanya membuka game; tidak melakukan login otomatis atau menjalankan bot.</p><button class="primary" id="close" style="width:100%">MENGERTI</button></div></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="./supabase-config.js"></script>
+<script>
+const $ = (id) => document.getElementById(id);
+const statusEl = $('status');
+const keyStatus = $('keyStatus');
+const dashboard = $('dashboard');
+const gate = $('keyGate');
+const cfg = window.BOSAGER_SUPABASE || {};
+let activeKey = '';
+let deviceId = localStorage.getItem('bosager-device-id');
+
+function randomDeviceId() {
+  const bytes = new Uint8Array(32);
+  crypto.getRandomValues(bytes);
+  return Array.from(bytes, b => b.toString(16).padStart(2,'0')).join('');
+}
+if (!deviceId) {
+  deviceId = randomDeviceId();
+  localStorage.setItem('bosager-device-id', deviceId);
+}
+function getSettings() {
+  return {
+    server:$('server').value.trim(),
+    room:$('room').value.trim(),
+    bypass:$('bypass').checked,
+    drone:$('drone').checked,
+    zoom:$('zoom').value,
+    retry:$('retry').checked,
+    sword:$('sword').checked,
+    buff:document.querySelector('input[name="buff"]:checked')?.value || 'Merah/Biru',
+    team:document.querySelector('input[name="team"]:checked')?.value || 'Solo'
+  };
+}
+function applySettings(s) {
+  if (!s) return;
+  $('server').value=s.server||'';
+  $('room').value=s.room||'';
+  $('bypass').checked=!!s.bypass;
+  $('drone').checked=!!s.drone;
+  $('zoom').value=String(s.zoom||2);
+  $('rangeValue').textContent='X'+$('zoom').value;
+  $('retry').checked=!!s.retry;
+  $('sword').checked=!!s.sword;
+  const buff=document.querySelector(`input[name="buff"][value="${CSS.escape(s.buff||'Merah/Biru')}"]`);
+  const team=document.querySelector(`input[name="team"][value="${CSS.escape(s.team||'Solo')}"]`);
+  if(buff) buff.checked=true;
+  if(team) team.checked=true;
+}
+$('zoom').addEventListener('input',e=>$('rangeValue').textContent='X'+e.target.value);
+
+async function callAccess(action, extra={}) {
+  if (!cfg.url || !cfg.anonKey || cfg.anonKey.includes('PASTE_')) {
+    throw new Error('Konfigurasi Supabase belum lengkap. Periksa supabase-config.js.');
+  }
+  const endpoint = cfg.url.replace(/\/$/,'') + '/functions/v1/bosager-access';
+  const response = await fetch(endpoint, {
+    method:'POST',
+    headers:{
+      'Content-Type':'application/json',
+      'apikey':cfg.anonKey,
+      'Authorization':'Bearer '+cfg.anonKey
+    },
+    body:JSON.stringify({action, key:activeKey || $('accessKey').value.trim(), device_id:deviceId, ...extra})
+  });
+  const result = await response.json().catch(()=>({error:'Respons server tidak valid.'}));
+  if (!response.ok || result.error) throw new Error(result.error || 'Permintaan ditolak.');
+  return result;
+}
+async function activate() {
+  const key=$('accessKey').value.trim();
+  if (!key) { keyStatus.textContent='Masukkan KEY BOSAGER terlebih dahulu.'; return; }
+  $('activateKey').disabled=true;
+  keyStatus.textContent='Memeriksa KEY dan perangkat…';
+  try {
+    activeKey=key;
+    const result=await callAccess('activate',{key});
+    gate.hidden=true;
+    dashboard.hidden=false;
+    $('lockApp').hidden=false;
+    keyStatus.textContent='KEY berhasil diverifikasi.';
+    if (result.settings) applySettings(result.settings);
+    statusEl.textContent=result.settings ? 'Konfigurasi berhasil dimuat dari Supabase.' : 'Akses aktif. Silakan atur konfigurasi BOSAGER.';
+    $('accessKey').value='';
+  } catch(e) {
+    activeKey='';
+    keyStatus.textContent=e.message;
+  } finally {
+    $('activateKey').disabled=false;
+  }
+}
+$('activateKey').addEventListener('click',activate);
+$('accessKey').addEventListener('keydown',e=>{if(e.key==='Enter') activate();});
+$('lockApp').addEventListener('click',()=>{
+  activeKey='';
+  dashboard.hidden=true;
+  gate.hidden=false;
+  $('lockApp').hidden=true;
+  keyStatus.textContent='Aplikasi dikunci. Masukkan KEY untuk membuka kembali.';
+});
+$('save').addEventListener('click',async()=>{
+  if(!activeKey){statusEl.textContent='Aktifkan KEY BOSAGER terlebih dahulu.';return;}
+  $('save').disabled=true;
+  statusEl.textContent='Menyimpan konfigurasi ke Supabase…';
+  try {
+    await callAccess('save_config',{settings:getSettings()});
+    statusEl.textContent='Konfigurasi berhasil disimpan ke Supabase Cloud.';
+  } catch(e) { statusEl.textContent='Gagal menyimpan: '+e.message; }
+  finally {$('save').disabled=false;}
+});
+$('login').addEventListener('click',()=>{
+  // Native Android app: launch the installed Mobile Legends app directly.
+  if (window.BosagerAndroid && typeof window.BosagerAndroid.openMLBB === 'function') {
+    window.BosagerAndroid.openMLBB();
+    return;
+  }
+  // Browser fallback: attempt the game's app link, then show a clear message.
+  const start = Date.now();
+  window.location.href = 'mobilelegends://';
+  setTimeout(()=>{
+    if (Date.now() - start < 1800) {
+      $('modal').classList.add('open');
+    }
+  }, 1200);
+});
+$('close').addEventListener('click',()=>$('modal').classList.remove('open'));
+if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
+  window.addEventListener("load",()=>navigator.serviceWorker.register("./service-worker.js").catch(()=>{}));
+}
+</script>
+</body></html>
